@@ -1,0 +1,51 @@
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="flex justify-between items-center mb-8">
+    <h3 class="text-3xl font-semibold text-gray-800">
+     
+            Admin Dashboard
+      
+    </h3>
+
+    <!-- Top Right User Icon Dropdown -->
+    <div class="relative">
+        <!-- User Icon (Top-Right) -->
+        <button id="user-btn" class="flex items-center text-gray-800 p-2 rounded-md hover:bg-gray-200 ">
+            <i class="fas fa-user-circle text-2xl"></i>
+      
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </button>
+
+        <!-- Dropdown Menu -->
+        <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
+            <div class="py-2">
+                <!-- Logout Option -->
+                <a href="{%url 'logout'%}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</a>
+
+                <!-- Manage Option -->
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Manage Account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Dropdown -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userBtn = document.getElementById("user-btn");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+
+        userBtn.addEventListener("click", function () {
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", function (event) {
+            if (!userBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+    });
+</script>

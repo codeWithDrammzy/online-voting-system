@@ -1,0 +1,34 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Maaun</title>
+        <!-- TailwindCSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+    <body class="bg-gray-50">
+        <!-- Navigation Bar -->
+        <header class=" bg-gray-800 text-white p-4 px-14">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <a href="{% url 'home' %}" class="text-xl font-bold">VoteNow</a>
+                
+                <nav class="space-x-4">
+                    <a href="#about" class="hover:text-gray-300">About</a>
+                    <a href="{% url 'my-login' %}" class="hover:text-gray-300">Login</a>
+                </nav>
+            </div>
+        </header>
+        
+        {% block content %}
+        {% endblock %}
+
+        <!-- Footer -->
+        <footer class=" bg-gray-800 text-white py-8 mt-16">
+            <div class="max-w-7xl mx-auto text-center">
+                <p>&copy; 2025 VoteNow. dawudaliyu@gmail.com.</p>
+            </div>
+        </footer>
+    </body>
+    </html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>maaun/board</title>
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <style>
+        .voter-bg-icon {
+            position: relative; /* Needed for absolute positioning of the icon */
+            overflow: hidden; /* Prevent the icon from overflowing if it's too large */
+        }
+        
+        .voter-bg-icon::before {
+            font-family: 'Font Awesome 5 Free'; /* Or your Font Awesome family */
+            font-weight: 900; /* Solid style */
+            content: '\f0c0'; /* Unicode for fa-users */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem; /* Adjust icon size */
+            color: rgba(255, 255, 255, 0.2); /* Adjust icon color and opacity */
+            z-index: 0; /* Place the icon behind the text */
+        }
+        
+        .voter-bg-icon > * {
+            position: relative; /* Needed to place text above the icon */
+            z-index: 1;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 h-screen flex">
+    
+    <!-- Sidebar -->
+    {% include 'maaun/board-sidebar.html' %}
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-6 overflow-auto">
+        {% include 'maaun/board-navbar.html' %}
+
+        <!-- Dashboard Overview (Stats) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-lg shadow-md voter-bg-icon">
+                <h5 class="text-xl font-semibold mb-2">Total Voters</h5>
+                <p class="text-2xl">{{ total_voters }}</p>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-lg shadow-md">
+                <h5 class="text-xl font-semibold mb-2">Total Positions</h5>
+                <p class="text-2xl">{{ total_positions }}</p>
+            </div>
+        
+            
+        
+            <div class="bg-gradient-to-r from-indigo-400 to-indigo-600 text-white p-6 rounded-lg shadow-md">
+                <h5 class="text-xl font-semibold mb-2">Total Candidates</h5>
+                <p class="text-2xl">{{ total_candidates }}</p>
+            </div>
+        
+            <div class="bg-gradient-to-r from-purple-400 to-purple-600 text-white p-6 rounded-lg shadow-md">
+                <h5 class="text-xl font-semibold mb-2">Voters Voted</h5>
+                <p class="text-2xl">{{ total_vote }}</p>
+            </div>
+        </div>
+
+        <!-- Actions Section -->
+        <h3 class="text-3xl font-semibold text-gray-800 mt-12 mb-6  ">Votes Tally</h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div>
+                <canvas id="presidentialChart"></canvas>
+            </div>
+        
+            <div>
+                <canvas id="vicePresidentialChart"></canvas>
+            </div>
+        
+        </div>
+        
+        <script>
+            // Presidential Results Data
+            const presidentialData = {
+                labels: [{% for result in presidential_results %}'{{ result.name }}',{% endfor %}],
+                datasets: [{
+                    label: 'Presidential Votes',
+                    data: [{% for result in presidential_results %}{{ result.votes }},{% endfor %}],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            };
+        
+            // Vice Presidential Results Data
+            const vicePresidentialData = {
+                labels: [{% for result in vice_presidential_results %}'{{ result.name }}',{% endfor %}],
+                datasets: [{
+                    label: 'Vice Presidential Votes',
+                    data: [{% for result in vice_presidential_results %}{{ result.votes }},{% endfor %}],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            };
+        
+            // Create Presidential Chart
+            const presidentialCtx = document.getElementById('presidentialChart').getContext('2d');
+            const presidentialChart = new Chart(presidentialCtx, {
+                type: 'bar',
+                data: presidentialData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        
+            // Create Vice Presidential Chart
+            const vicePresidentialCtx = document.getElementById('vicePresidentialChart').getContext('2d');
+            const vicePresidentialChart = new Chart(vicePresidentialCtx, {
+                type: 'bar',
+                data: vicePresidentialData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+
+    </div>
+</body>
+
+
+
+
+
+
+
+
+
+
+</html>

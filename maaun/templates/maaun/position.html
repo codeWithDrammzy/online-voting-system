@@ -1,0 +1,115 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election</title>
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/app.js' %}"></script> 
+</head>
+
+<body class="bg-gray-100 h-screen flex">
+    
+    <!-- Sidebar -->
+    {% include 'maaun/board-sidebar.html' %}
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-6 overflow-auto ">
+        {% include 'maaun/board-navbar.html' %}
+        
+        <!-- Election Table -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex justify-between items-center">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Total Position ({{position_count}})</h3>
+
+                {%for message in messages %}
+                {%if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <h4 id="message-timeout" class="bg-red-700 p-2 rounded-lg text-center text-white">
+                    {{message}}
+                 </h4>
+
+                {%endif%}
+
+                {%endfor%}
+                
+                <a href="#add-position-form" class="text-blue-600 hover:underline flex items-center">
+                    <div class="rounded-full bg-blue-200 w-8 h-8 flex items-center justify-center mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                    </div>
+                    <span>New</span>
+                </a>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto border border-gray-300 rounded-lg overflow-hidden">
+                    <thead>
+                        <tr class="bg-gray-800 text-white uppercase text-sm leading-normal">
+                         
+                            <th class="py-3 px-6 text-left">Position</th>
+                            <th class="py-3 px-6 text-center">Year</th>
+                            <th class="py-3 px-6 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700 text-sm font-light">
+                        {% for position in positions %}
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            
+                            <td class="py-3 px-6 text-left">{{ position.name|upper }}</td>
+                            <td class="py-3 px-6 text-center">{{ position.election }}</td>
+                            <td class="py-3 px-6 text-center">
+                                <div>
+                                    <form method="post" action="{% url 'delete_item' model_name='position' item_id=position.id %}" onsubmit="return confirm('Are you sure you want to delete this Position?');" class="inline-block">
+                                        {% csrf_token %}
+                                        <button type="submit" class="px-4 py-2 bg-red-500 text-white text-sm rounded-lg shadow-md hover:bg-red-600 transition duration-200">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="py-4 text-center text-gray-500">No positions found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add New Position Form -->
+        <div id="add-position-form" class="bg-white p-6 rounded-lg shadow-md">
+            {% load tailwind_filters %}
+
+            <div class="flex justify-between">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Add New Position</h3>
+                {%for message in messages%}
+                {%if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS%}
+                <h4 id="message-timeout" class="bg-blue-500 p-2 rounded-lg text-center text-white">
+                    {{message}}
+                 </h4>
+                {%endif%}
+                {%endfor%}
+            </div>
+
+            
+            <div class="overflow-x-auto">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }} <!-- Ensure form is passed in the view -->
+                    
+                    <!-- Submit Button styled with Tailwind -->
+                    <button type="submit" class=" bg-gray-800 text-white px-4 py-2 rounded-md mt-4 hover:bg-blue-600">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

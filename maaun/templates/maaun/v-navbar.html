@@ -1,0 +1,37 @@
+
+<div class="mt-2 bg-white shadow-md rounded-lg p-6 relative flex justify-between items-center">
+    <h1 class="text-xl font-bold text-gray-900">Welcome, <strong>{{ voter_reg_no }}</strong>!</h1
+    
+    <!-- Dropdown Menu -->
+    <div class="relative">
+        <!-- Dropdown Button -->
+        <button id="menuButton" class="flex items-center gap-2 text-gray-800 text-lg py-2 px-4 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+            <i class="fas fa-user-circle text-2xl"></i> ⚙️
+        </button>
+    
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-lg border border-gray-200 hidden p-3">
+            <a href="#" class="block py-3 px-5 text-gray-800 hover:bg-gray-100 rounded-lg">Manage Account</a>
+            <a href=" {% url 'logout' %} " class="block py-3 px-5 text-red-600 hover:bg-gray-100 rounded-lg">Logout</a>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let menuButton = document.getElementById("menuButton");
+        let dropdownMenu = document.getElementById("dropdownMenu");
+
+        menuButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+    });
+</script>

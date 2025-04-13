@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="flex">
+        {% include 'maaun/v-Sidebar.html' %}
+        
+
+
+        <main class="lg:ml-64 p-4 w-full">
+            
+           {% include 'maaun/mobile-nav.html' %}
+            <div class="bg-white shadow-md rounded-lg p-6 mt-4">
+                <h1 class="text-2xl font-bold text-gray-900 mb-4">Election Results: {{ position.name }}</h1>
+
+                <table class="w-full text-left">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4">Photo</th>
+                            <th class="py-2 px-4">Candidate</th>
+                            
+                            <th class="py-2 px-4">Department</th>
+                            <th class="py-2 px-4">Votes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                        <tr class="border-b">
+
+                            <td ><img src="{{ result.candidate.avater.url}}" alt="Candidate Photo" class="w-24 h-24 object-cover rounded-full mx-auto border-4 border-blue-500 shadow-md"></td>
+
+                            <td class="py-2 px-4">{{ result.candidate.first_name }} {{ result.candidate.last_name }}</td>
+                            
+                            <td class="py-2 px-4">{{ result.candidate.department }}</td>
+                            <td class="py-2 px-4">{{ result.vote_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{% url 'results' %}" class="block mt-4 text-blue-500 hover:underline">🔙 Back</a>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
