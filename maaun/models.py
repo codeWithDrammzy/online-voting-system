@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class Election(models.Model):
-    year = models.IntegerField(unique=True)
+    year = models.IntegerField(unique=True, max_length=4)
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Candidate(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     department = models.CharField(max_length=255)
-    reg_no = models.CharField(max_length=255, unique=True)
+    reg_no = models.CharField(max_length=15, unique=True)
     position = models.ForeignKey('Position', on_delete=models.CASCADE, related_name="candidates")
     avater = models.ImageField(null= True, default="avater.png") 
     created = models.DateTimeField(auto_now_add=True) 
@@ -49,8 +49,8 @@ class Voter(AbstractBaseUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     department = models.CharField(max_length=255)
-    reg_no = models.CharField(max_length=255, unique=True)
-    level = models.CharField(max_length=50)
+    reg_no = models.CharField(max_length=15, unique=True)
+    level = models.CharField(max_length=3)
     has_voted = models.BooleanField(default=False)  # Add this field
     created = models.DateTimeField(auto_now=True)
 

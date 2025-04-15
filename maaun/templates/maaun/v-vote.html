@@ -33,7 +33,7 @@
                         {% for position in positions %}
                         <tr class="hover:bg-gray-100">
                             <td class="border border-gray-300 px-4 py-2">{{ forloop.counter }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ position.name }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ position.name|upper }}</td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
                                 <a href="{% url 'candidates-list' position.id %}" class="bg-gray-800 text-white px-4 py-1 rounded hover:bg-blue-700">
                                     Cast Vote

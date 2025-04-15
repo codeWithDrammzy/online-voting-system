@@ -28,8 +28,8 @@
                 <tbody>
                     {% for result in results %}
                     <tr class="border-b">
-                        <td class="py-2 px-4">{{ result.candidate.first_name }} {{ result.candidate.last_name }}</td>
-                        <td class="py-2 px-4">{{ result.candidate.department }}</td>
+                        <td class="py-2 px-4">{{ result.candidate.first_name|upper }} {{ result.candidate.last_name|upper }}</td>
+                        <td class="py-2 px-4">{{ result.candidate.department|upper }}</td>
                         <td class="py-2 px-4">{{ result.vote_count }}</td>
                     </tr>
                     {% endfor %}

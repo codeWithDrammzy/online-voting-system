@@ -17,7 +17,7 @@
             
            {% include 'maaun/mobile-nav.html' %}
             <div class="bg-white shadow-md rounded-lg p-6 mt-4">
-                <h1 class="text-2xl font-bold text-gray-900 mb-4">Election Results: {{ position.name }}</h1>
+                <h1 class="text-2xl font-bold text-gray-900 mb-4">Election Results: {{ position.name|upper }}</h1>
 
                 <table class="w-full text-left">
                     <thead>
@@ -35,9 +35,9 @@
 
                             <td ><img src="{{ result.candidate.avater.url}}" alt="Candidate Photo" class="w-24 h-24 object-cover rounded-full mx-auto border-4 border-blue-500 shadow-md"></td>
 
-                            <td class="py-2 px-4">{{ result.candidate.first_name }} {{ result.candidate.last_name }}</td>
+                            <td class="py-2 px-4">{{ result.candidate.first_name|upper }} {{ result.candidate.last_name|upper }}</td>
                             
-                            <td class="py-2 px-4">{{ result.candidate.department }}</td>
+                            <td class="py-2 px-4">{{ result.candidate.department|upper }}</td>
                             <td class="py-2 px-4">{{ result.vote_count }}</td>
                         </tr>
                         {% endfor %}
