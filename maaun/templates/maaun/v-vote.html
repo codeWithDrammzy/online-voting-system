@@ -24,7 +24,7 @@
                 <table class="w-full mt-4 border-collapse border border-gray-300">
                     <thead>
                         <tr class="bg-gray-200">
-                            <th class="border border-gray-300 px-4 py-2">#</th>
+                           
                             <th class="border border-gray-300 px-4 py-2">Vote for Position</th>
                             <th class="border border-gray-300 px-4 py-2 text-center">Action</th>
                         </tr>
@@ -32,7 +32,7 @@
                     <tbody>
                         {% for position in positions %}
                         <tr class="hover:bg-gray-100">
-                            <td class="border border-gray-300 px-4 py-2">{{ forloop.counter }}</td>
+                           
                             <td class="border border-gray-300 px-4 py-2">{{ position.name|upper }}</td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
                                 <a href="{% url 'candidates-list' position.id %}" class="bg-gray-800 text-white px-4 py-1 rounded hover:bg-blue-700">

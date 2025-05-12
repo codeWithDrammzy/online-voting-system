@@ -1,50 +1,66 @@
-<div class="w-64 bg-gray-800 text-white h-screen p-6 fixed left-0 top-0 overflow-y-auto">
-    <h2 class="text-xl font-semibold mb-8"> 
-        <span class="font-bold text-white uppercase">{{ request.user.username }} </span> as Admin
-    </h2>
+<div class="w-64 bg-gray-900 text-gray-200 h-screen p-6 fixed left-0 top-0 overflow-y-auto shadow-lg">
+    <div class="mb-10">
+        <h2 class="text-2xl font-bold tracking-wide text-white">
+            {{ request.user.username|title }}
+        </h2>
+        <p class="text-sm text-gray-400">Admin Panel</p>
+    </div>
 
-    <ul class="space-y-4">  
-        
-        <h4 class=" bg-black p-2 rounded  text-white text-lg font-semibold  mt-8 mb-4">Report</h4>
-        <li>
-            <a href="{% url 'dashboard' %}" class="flex items-center text-white hover:bg-gray-700 p-2 rounded">
-                <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
-            </a>
-        </li>
-        
-        <li>
-            <a href="{% url 'final-result' %}" class="flex items-center text-white hover:bg-gray-700 p-2 rounded">
-                <i class="fas fa-chart-bar mr-3"></i> Results
-            </a>
-        </li>
-        <h4 class="bg-black p-2 rounded  text-white text-lg font-semibold mt-8 mb-4">Manage</h4>
-        
-        <li>
-            <a href="{% url 'voter' %}" class="flex items-center text-white hover:bg-gray-700 p-2 rounded">
-                <i class="fas fa-users mr-3"></i> Voters
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'position'  %}" class="flex items-center text-white hover:bg-gray-700 p-2 rounded">
-                <i class="fas fa-cogs mr-3"></i> Position
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'candidate' %}" class="flex items-center text-white hover:bg-gray-700 p-2 rounded">
-                <i class="fas fa-users mr-3"></i> Candidates
-            </a>
-        </li>
-        
-        <h4 class=" bg-black p-2 rounded  text-white text-lg font-semibold mt-8 mb-4">Setting</h4>
-        <li>
-            <a href="{% url 'election'  %}" class="flex items-center text-white hover:bg-gray-700 p-2 rounded">
-                <i class="fas fa-chart-bar mr-3"></i> Election
-            </a>
-        </li>
+    <nav class="space-y-8">
+        <!-- Report Section -->
+        <div>
+            <h4 class="text-gray-400 uppercase text-xs font-semibold mb-2 tracking-wider">Report</h4>
+            <ul class="space-y-2">
+                <li>
+                    <a href="{% url 'dashboard' %}" class="flex items-center hover:bg-gray-700 px-3 py-2 rounded transition">
+                        <i class="fas fa-tachometer-alt mr-3 text-indigo-400"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'final-result' %}" class="flex items-center hover:bg-gray-700 px-3 py-2 rounded transition">
+                        <i class="fas fa-chart-bar mr-3 text-green-400"></i> Results
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-       
-        
-      
-       
-    </ul>
+        <!-- Manage Section -->
+        <div>
+            <h4 class="text-gray-400 uppercase text-xs font-semibold mb-2 tracking-wider">Manage</h4>
+            <ul class="space-y-2">
+                <li>
+                    <a href="{% url 'voter' %}" class="flex items-center hover:bg-gray-700 px-3 py-2 rounded transition">
+                        <i class="fas fa-users mr-3 text-blue-400"></i> Voters
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'position' %}" class="flex items-center hover:bg-gray-700 px-3 py-2 rounded transition">
+                        <i class="fas fa-cogs mr-3 text-yellow-400"></i> Position
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'candidate' %}" class="flex items-center hover:bg-gray-700 px-3 py-2 rounded transition">
+                        <i class="fas fa-user-tie mr-3 text-pink-400"></i> Candidates
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Settings Section -->
+        <div>
+            <h4 class="text-gray-400 uppercase text-xs font-semibold mb-2 tracking-wider">Settings</h4>
+            <ul class="space-y-2">
+                <li>
+                    <a href="{% url 'election' %}" class="flex items-center hover:bg-gray-700 px-3 py-2 rounded transition">
+                        <i class="fas fa-vote-yea mr-3 text-teal-400"></i> Election
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center hover:bg-gray-700 px-3 py-2 rounded transition">
+                        <i class="fas fa-users mr-3 text-blue-400 text-red-500 "></i> Sub Admins
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </div>

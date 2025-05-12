@@ -34,6 +34,10 @@ class CandidateForm(forms.ModelForm):
         model = Candidate
         fields = ['first_name', 'last_name', 'department', 'reg_no', 'position', 'avater']
 
+class updteCandidateForm(forms.ModelForm):
+    class Meta:
+        model = Candidate
+        fields = ['first_name', 'last_name', 'department', 'reg_no',  'avater']
 
 class VoterForm(forms.ModelForm):
     class Meta:

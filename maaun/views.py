@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import LoginUserForm, ElectionForm, PositionForm, CandidateForm, VoterForm
+from .forms import LoginUserForm, ElectionForm, PositionForm, CandidateForm, VoterForm, updteCandidateForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from .models import Election, Position, Voter, Candidate, Vote
@@ -137,6 +137,26 @@ def candidates(request):
     }
     return render(request, "maaun/candidate.html", context)
 
+@login_required(login_url='my-login')
+def candidate_view(request, pk):
+    candidate = Candidate.objects.get(pk=pk)
+    return render(request, 'maaun/candidate-view.html', {'candidate': candidate})
+
+
+@login_required(login_url='my-login')
+def update_candidate(request, pk):
+    candidate = get_object_or_404(Candidate, pk=pk)
+    if request.method == 'POST':
+        form = updteCandidateForm (request.POST, request.FILES, instance=candidate)
+        if form.is_valid():
+            form.save()
+            return redirect('candidate')  
+    else:
+        form = updteCandidateForm (instance=candidate)
+
+    context = {'form': form}
+    return render(request, 'maaun/update-candidate.html', context)
+
 
 @login_required(login_url='my-login')
 def voters(request):
@@ -188,7 +208,6 @@ def final_details(request, position_id): # Use pk instead of position_id
         "results": results,
     }
     return render(request, 'maaun/final-details.html', context)
-
 
 
 @voter_login_required
@@ -277,7 +296,6 @@ def candidates_list(request, position_id):
 
     return render(request, 'maaun/candidates-list.html', context)
 
-
 @voter_login_required
 def results(request):
     positions = Position.objects.all()
@@ -312,9 +330,6 @@ def results_detail(request, position_id):
     }
 
     return render(request, 'maaun/results_detail.html', context) 
-
-
-
 
 @login_required(login_url='my-login')
 def delete_item(request, model_name, item_id):

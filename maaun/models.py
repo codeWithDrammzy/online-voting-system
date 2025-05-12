@@ -3,8 +3,17 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+
 class Election(models.Model):
-    year = models.IntegerField(unique=True, max_length=4)
+    year = models.IntegerField(
+        unique=True,
+        validators=[
+            MinValueValidator(1000),
+            MaxValueValidator(9999)
+        ]
+    )
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -42,7 +51,8 @@ class VoterManager(BaseUserManager):
             raise ValueError("The Registration Number is required")
 
         voter = self.model(reg_no=reg_no, **extra_fields)
-        voter.set_password(password or reg_no)  # Default password is reg_no if not provided
+        voter.set_password(password or "1234")
+
         voter.save(using=self._db)
         return voter
 class Voter(AbstractBaseUser):
@@ -60,9 +70,11 @@ class Voter(AbstractBaseUser):
 
 
     def save(self, *args, **kwargs):
-        if not self.pk:  # Only set the password when the voter is first created
-            self.set_password(self.reg_no)  
+        if not self.pk:
+            self.set_password("1234")
+
         super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.reg_no}"

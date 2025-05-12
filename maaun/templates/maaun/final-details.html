@@ -1,3 +1,4 @@
+{% load static %}
 <html lang="en">
 
 <head>
@@ -5,21 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voters</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Hide elements with class .no-print when printing -->
+    <style>
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+                margin: 0;
+                padding: 0;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+            }
+
+            .content-wrapper {
+                width: 100% !important;
+                margin-left: 0 !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 h-screen flex">
-    {%include 'maaun/board-sidebar.html' %}
+    <!-- Hide Sidebar during printing -->
+    <div class="no-print">
+        {% include 'maaun/board-sidebar.html' %}
+    </div>
 
-    <div class="flex-1 ml-64 p-6 overflow-auto ">
-        {% include 'maaun/board-navbar.html' %}
-    
-    <div class=" bg-white shadow-md rounded-lg p-6">
-        
-            <h1 class="text-2xl font-bold text-gray-900 mb-4">Election Results For <strong class="text-blue-500"> < {{ position.name|upper }} >  </strong> </h1>
+    <!-- Adjust content wrapper to full width on print -->
+    <div class="flex-1 ml-64 p-6 overflow-auto content-wrapper">
+        <div class="no-print">
+            {% include 'maaun/board-navbar.html' %}
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-2xl font-bold text-gray-900">Election Results For 
+                    <strong class="text-blue-500">< {{ position.name |upper }} ></strong>
+                </h1>
+                
+                <!-- Print Button -->
+                <button onclick="window.print()" class="no-print bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                    🖨️ Print Result
+                </button>
+            </div>
 
             <table class="w-full text-left">
                 <thead>
-                    <tr>
+                    <tr class="bg-gray-100">
                         <th class="py-2 px-4">Candidate</th>
                         <th class="py-2 px-4">Department</th>
                         <th class="py-2 px-4">Votes</th>
@@ -28,17 +82,20 @@
                 <tbody>
                     {% for result in results %}
                     <tr class="border-b">
-                        <td class="py-2 px-4">{{ result.candidate.first_name|upper }} {{ result.candidate.last_name|upper }}</td>
+                        <td class="py-2 px-4 flex items-center gap-2">
+                            <img src="{{ result.candidate.avater.url }}" alt="Profile" class="w-8 h-8 rounded-full object-cover" />
+                            <span>{{ result.candidate.first_name|upper }} {{ result.candidate.last_name|upper }}</span>
+                        </td>
                         <td class="py-2 px-4">{{ result.candidate.department|upper }}</td>
                         <td class="py-2 px-4">{{ result.vote_count }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{% url 'final-result' %}" class="block mt-4 text-blue-500 hover:underline">🔙 Back</a>
+
+            <!-- Back Link -->
+            <a href="{% url 'final-result' %}" class="no-print block mt-4 text-blue-500 hover:underline">🔙 Back</a>
         </div>
-   
-      
     </div>
 </body>
 
