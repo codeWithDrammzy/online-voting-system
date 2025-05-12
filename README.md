@@ -42,11 +42,15 @@ check the screenshort folder for more
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/codeWithDrammzy/online-voting-system.git
-   cd maaun-voting-system
+cd maaun-voting-system
+python -m venv venv
 
-    python -m venv venv
-    venv\Scripts\activate
-    pip install django
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
 
-    pip install -r requirements.txt
-    pip install django crispy-tailwind django-crispy-forms
+pip install django
+pip install -r requirements.txt
+pip install django crispy-tailwind django-crispy-forms
