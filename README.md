@@ -52,5 +52,7 @@ venv\Scripts\activate
 source venv/bin/activate
 
 pip install django
+
 pip install -r requirements.txt
+
 pip install django crispy-tailwind django-crispy-forms
