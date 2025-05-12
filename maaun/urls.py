@@ -17,7 +17,9 @@ urlpatterns = [
     
 
     path("voter", views.voters, name="voter"),
+    path("update-password", views.voter_passwordUpdate, name="update-password"),
     path('v-dashboard/', views.voter_dashboard, name="v-dashboard"), 
+    path('v-candidate/', views.v_candidate, name="v-candidate"), 
     path('v-vote/', views.v_vote, name="v-vote"), 
     path('candidates-list/<int:position_id>/', views.candidates_list, name="candidates-list"),
     path('vote-candidate/<int:candidate_id>/', views.vote_candidate, name='vote-candidate'),

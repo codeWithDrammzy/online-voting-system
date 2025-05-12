@@ -7,51 +7,53 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
-    
-    <!-- Sidebar -->
-    <div class="flex">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
         {% include 'maaun/v-Sidebar.html' %}
-       
 
         <!-- Main Content -->
-         {% comment %} the lg control the media from here {% endcomment %}
-        <main class="lg:ml-64 p-4 w-full ">
-           
-           {% include 'maaun/v-navbar.html' %}
-           {% include 'maaun/mobile-nav.html' %}
+        <main class="lg:ml-64 p-4 w-full">
+            {% include 'maaun/v-navbar.html' %}
+            {% include 'maaun/mobile-nav.html' %}
 
-            <!-- Positions Table -->
+            <!-- Welcome Section -->
             <div class="mt-8 bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">Welcome to the MAAUN Voting System</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Welcome to the MAAUN Voting System</h2>
                 <p class="text-gray-700 leading-relaxed">
-                    This platform is designed to ensure free, fair, and transparent elections for students of 
-                    <strong>Maryam Abacha American University (MAAUN)</strong>. Your participation helps shape the leadership of our institution. 
+                    This platform is designed to ensure free, fair, and transparent elections for students of
+                    <strong>Maryam Abacha American University (MAAUN)</strong>. Your participation helps shape the leadership of our institution.
                     Every vote counts, and your voice matters!
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                    <!-- Feature Card 1 -->
-                    <div class="bg-blue-100 p-4 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold text-blue-900">🗳️ Fair & Transparent Elections</h3>
-                        <p class="text-gray-800 mt-2">We ensure that every student has an equal opportunity to vote, making the process transparent and trustworthy.</p>
+                <!-- Quick Actions -->
+                <div class="md:hidden mt-6 flex flex-wrap gap-4 block ">
+                    <a href="{% url 'v-vote' %}" class="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition">🗳️ Start Voting</a>
+                    <a href="{% url 'v-candidate' %}" class="bg-green-600 text-white px-5 py-3 rounded-lg hover:bg-green-700 transition">👤 Candidates</a>
+                    
+                </div>
+
+                <!-- Features -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                    <div class="bg-blue-100 p-5 rounded-lg shadow">
+                        <h3 class="text-xl font-semibold text-blue-900">🗳️ Fair & Transparent Elections</h3>
+                        <p class="text-gray-800 mt-2">We ensure every student has an equal opportunity to vote, making the process transparent and trustworthy.</p>
                     </div>
 
-                    <!-- Feature Card 2 -->
-                    <div class="bg-green-100 p-4 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold text-green-900">🔒 Secure & Confidential</h3>
-                        <p class="text-gray-800 mt-2">Your vote remains confidential. All data is securely stored, ensuring a safe and protected election process.</p>
+                    <div class="bg-green-100 p-5 rounded-lg shadow">
+                        <h3 class="text-xl font-semibold text-green-900">🔒 Secure & Confidential</h3>
+                        <p class="text-gray-800 mt-2">Your vote remains confidential. All data is securely stored to ensure a safe election process.</p>
                     </div>
 
-                    <!-- Feature Card 3 -->
-                    <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold text-yellow-900">📊 Instant & Reliable Results</h3>
-                        <p class="text-gray-800 mt-2">Track live election results as soon as voting closes. Stay informed and see democracy in action!</p>
+                    <div class="bg-yellow-100 p-5 rounded-lg shadow">
+                        <h3 class="text-xl font-semibold text-yellow-900">📊 Instant & Reliable Results</h3>
+                        <p class="text-gray-800 mt-2">Track live election results immediately after voting ends. Stay informed and involved!</p>
                     </div>
                 </div>
 
-                <div class="mt-6">
-                    <h2 class="text-xl font-semibold text-gray-900">🔔 Voting Guidelines</h2>
-                    <ul class="list-disc list-inside text-gray-800 mt-2">
+                <!-- Voting Guidelines -->
+                <div class="mt-8">
+                    <h2 class="text-2xl font-semibold text-gray-900">🔔 Voting Guidelines</h2>
+                    <ul class="list-disc list-inside text-gray-800 mt-3 space-y-1">
                         <li>Ensure you are eligible to vote before proceeding.</li>
                         <li>Each voter can cast one vote per position.</li>
                         <li>Once submitted, your vote cannot be changed.</li>
@@ -59,6 +61,7 @@
                     </ul>
                 </div>
 
+                <!-- Call to Action -->
                 <div class="mt-6 p-4 bg-gray-100 border-l-4 border-blue-500">
                     <p class="text-gray-700 italic">"Your vote is your power! Make a difference and help shape the future of MAAUN." - MAAUN Electoral Committee</p>
                 </div>

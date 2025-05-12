@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import LoginUserForm, ElectionForm, PositionForm, CandidateForm, VoterForm, updteCandidateForm
+from .forms import *
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
-from .models import Election, Position, Voter, Candidate, Vote
+from .models import *
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -229,6 +229,20 @@ def voter_dashboard(request):
 
     return render(request, "maaun/v-dashboard.html", context)
 
+
+@voter_login_required
+def v_candidate(request):
+    if "voter_id" not in request.session:
+        return redirect("my-login") 
+    voter_reg_no = request.session.get("voter_reg_no", "N/A")
+    candidates = Candidate.objects.all().order_by('position')
+
+    context = {'candidates':candidates,
+               'voter_reg_no':voter_reg_no
+               }
+    return render(request, 'maaun/v-candidate.html', context)
+
+
 @voter_login_required
 def v_vote(request):
     if "voter_id" not in request.session:
@@ -247,6 +261,38 @@ def v_vote(request):
 
 
     return render(request, "maaun/v-vote.html", context)
+
+
+@voter_login_required
+def voter_passwordUpdate(request):
+    if "voter_id" not in request.session:
+        return redirect("my-login")  
+
+    voter_id = request.session["voter_id"]  # get the voter ID from session
+    try:
+        voter = Voter.objects.get(id=voter_id)  # fetch the voter from the database
+    except Voter.DoesNotExist:
+        return redirect("my-login")  # redirect if the voter doesn't exist
+
+    form = ChangePasswordForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            old_password = form.cleaned_data['old_password']
+            new_password = form.cleaned_data['new_password']
+
+            # Check if the old password is correct
+            if check_password(old_password, voter.password):
+                # Update the password
+                voter.set_password(new_password)
+                voter.save()
+                return redirect("v-dashboard")  # redirect to a success page
+            else:
+                form.add_error('old_password', 'Old password is incorrect')
+    
+    return render(request, 'maaun/update-password.html', {'form': form})
+
+
+
 
 @voter_login_required
 def vote_candidate(request, candidate_id):
@@ -277,7 +323,7 @@ def candidates_list(request, position_id):
     candidates = Candidate.objects.filter(position=position)
    
     election = position.election
-    voter_id = request.session.get('voter_id') # get the voter_id from the session.
+    voter_id = request.session.get('voter_id') 
     if voter_id is None:
         messages.error(request, "voter session error")
         return redirect('v-vote')

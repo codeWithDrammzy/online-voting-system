@@ -50,3 +50,19 @@ class VoterForm(forms.ModelForm):
         if commit:
             voter.save()
         return voter
+
+
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput())
+    new_password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new = cleaned_data.get("new_password")
+        confirm = cleaned_data.get("confirm_password")
+
+        if new != confirm:
+            raise forms.ValidationError("New passwords do not match")
+        return cleaned_data

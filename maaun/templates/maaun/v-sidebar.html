@@ -1,34 +1,65 @@
 <div class="flex">
-    {% comment %} the lg control the media from here {% endcomment %}
-    <aside class="w-64 bg-gray-800 text-white h-screen p-6 fixed left-0 top-0 overflow-y-auto lg:block hidden">
-        <h2 class="text-2xl font-bold mb-6">Voters Panel</h2>
-        <hr>
-        <nav>
-            <ul class="mt-4">
-                <li class="mb-4">
-                    <a href="{% url 'v-dashboard' %}" 
-                       class="{% if '/dashboard/' in request.path %}bg-blue-500 text-white font-bold px-4 py-2 rounded{% else %}hover:text-gray-300{% endif %}">
+    <aside class="w-64 bg-gray-900 text-white h-screen fixed left-0 top-0 overflow-y-auto hidden lg:block shadow-lg">
+        <div class="p-6 border-b border-gray-700">
+            <h1 class="text-2xl font-semibold tracking-wide">🗳️ Voters Panel</h1>
+        </div>
+        <nav class="p-6">
+            <ul class="space-y-4">
+                <li>
+                    <a href="{% url 'v-dashboard' %}"
+                       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-200
+                              {% if '/v-dashboard/' in request.path %}
+                                  bg-blue-600 font-semibold text-white
+                              {% else %}
+                                  hover:bg-gray-800 hover:text-white text-gray-300
+                              {% endif %}">
                         🏠 Dashboard
                     </a>
                 </li>
-                <li class="mb-4">
-                    <a href="{% url 'v-vote' %}" 
-                       class="{% if '/vote/' in request.path %}bg-blue-500 text-white font-bold px-4 py-2 rounded{% else %}hover:text-gray-300{% endif %}">
+                <li>
+                    <a href="{% url 'v-candidate' %}"
+                       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-200
+                              {% if '/v-candidate/' in request.path %}
+                                  bg-blue-600 font-semibold text-white
+                              {% else %}
+                                  hover:bg-gray-800 hover:text-white text-gray-300
+                              {% endif %}">
+                        👤 Candidate
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'v-vote' %}"
+                       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-200
+                              {% if '/v-vote/' in request.path %}
+                                  bg-blue-600 font-semibold text-white
+                              {% else %}
+                                  hover:bg-gray-800 hover:text-white text-gray-300
+                              {% endif %}">
                         🗳️ Vote
                     </a>
                 </li>
-                <li class="mb-4">
-                    <a href="{% url 'results' %}" class="hover:text-gray-300">📊 Results</a>
+                <li>
+                    <a href="{% url 'results' %}"
+                       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-200
+                              {% if '/results' in request.path %}
+                                  bg-blue-600 font-semibold text-white
+                              {% else %}
+                                  hover:bg-gray-800 hover:text-white text-gray-300
+                              {% endif %}">
+                        📊 Results
+                    </a>
                 </li>
-                <li class="mb-4">
-                    <a href="#" class="hover:text-gray-300">⚙️ Settings</a>
-                </li>
-                <li class="mt-6">
-                    <a href="{% url 'logout' %}" class="text-red-400 hover:text-red-600">🚪 Logout</a>
-                </li>
+                
+
+                
             </ul>
+
+            <div class="mt-10 border-t border-gray-700 pt-6">
+                <a href="{% url 'logout' %}"
+                   class="flex items-center gap-2 px-4 py-2 text-red-400 hover:text-red-600 transition duration-200">
+                    🚪 Logout
+                </a>
+            </div>
         </nav>
     </aside>
-
-  
 </div>
