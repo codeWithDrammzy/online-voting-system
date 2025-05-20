@@ -1,33 +1,40 @@
 {% extends 'maaun/base.html' %}
+{% load static %}
 
 {% block content %}
-
 <!-- Hero Section -->
-<section class="bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 py-20 text-center">
-  <div class="max-w-3xl mx-auto px-6">
-    <h2 class="text-4xl md:text-5xl font-extrabold text-blue-900">
-      Welcome to the Student Voting System
-    </h2>
-    <p class="mt-4 text-lg md:text-xl text-blue-700">
-      Vote for your departmental leaders today!
+<section class="relative h-screen bg-cover bg-center" style="background-image: url('{% static 'images/bg-vote.jpg' %}');">
+
+  <!-- Dark Overlay -->
+  <div class="absolute inset-0 bg-black bg-opacity-70"></div>
+
+  <!-- Watermark Logo -->
+  <div class="absolute bottom-0 right-0 opacity-5 z-0 pointer-events-none">
+    <img src="{% static 'images/logo-1.png' %}" alt="MAAUN Logo" class="w-[500px] h-auto object-contain" />
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center text-center text-white h-full px-6">
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-4">
+      🗳️ MAAUN Student Voting System
+    </h1>
+    <p class="text-lg md:text-xl max-w-2xl mb-8">
+      Empower your voice. Vote for your leaders with transparency, fairness, and trust.
     </p>
-    <a 
-      href="{% url 'my-login' %}" 
-      class="mt-8 inline-block bg-blue-800 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
-    >
+    <a href="{% url 'my-login' %}"
+       class="bg-blue-600 hover:bg-blue-500 transition duration-300 px-6 py-3 rounded-lg text-white font-semibold text-lg shadow-lg">
       Get Started
     </a>
   </div>
 </section>
 
-<!-- Features or Info Section -->
-<section class="py-20 bg-gray-100">
-  <div class="max-w-4xl mx-auto px-6 text-center">
-    <h3 class="text-3xl font-bold text-blue-900">Why Vote?</h3>
-    <p class="mt-4 text-lg text-gray-700 leading-relaxed">
-      Your vote matters! Empower your department by choosing leaders who represent your vision, voice, and values.
+<!-- Info Section -->
+<section class="bg-white py-20">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Your Vote Matters</h2>
+    <p class="text-lg text-gray-600">
+      Your vote shapes the leadership of your department and represents the values and vision of the student body.
     </p>
   </div>
 </section>
-
 {% endblock %}

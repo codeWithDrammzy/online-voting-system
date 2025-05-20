@@ -1,9 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MAAUN E-Vote</title>
+      <title>MAAUN E-Vote</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo-1.png' %}">
+  <!-- Other meta tags, CSS links, etc. -->
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,16 +22,21 @@
 </head>
 <body class="bg-gray-50 font-sans leading-relaxed text-gray-900">
 
-    <!-- Navigation -->
-    <header class="bg-gray-800 text-white">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+ <!-- Navigation -->
+<header class="bg-gray-800 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <img src="{% static 'images/logo-1.png' %}" alt="Logo" class="w-8 h-8">
             <a href="{% url 'home' %}" class="text-2xl font-bold tracking-tight hover:text-blue-300 transition">MAAUN E-Vote</a>
-            <nav class="space-x-6">
-                <a href="#about" class="hover:text-gray-300 transition">About</a>
-                <a href="{% url 'my-login' %}" class="hover:text-gray-300 transition">Login</a>
-            </nav>
         </div>
-    </header>
+
+        <nav class="space-x-6">
+            <a href="#about" class="hover:text-gray-300 transition">About</a>
+            <a href="{% url 'my-login' %}" class="hover:text-gray-300 transition">Login</a>
+        </nav>
+    </div>
+</header>
+
 
     <!-- Main Content -->
     <main>
